@@ -7,16 +7,17 @@ import (
 type Chat struct {
 	Model			gorm.Model
 
-	ID         int `json:"id"`
+	// ID         int `json:"id"`
+	ChatRoomID     string `json:"chat_room_id"`
 	UserID     string `json:"user_id"`
 	Message    string `json:"message"`
-	CreatedAt  string `json:"created_at"`
+	// CreatedAt  string `json:"created_at"`
 }
 
-func CreateChat(userID string, message string) *Chat {
-	return &Chat{
-		ID: 0,
-		UserID: "hello",
-		Message: "hi",
+func CreateChat(chatRoomId string, userId string, message string) Chat {
+	return Chat{
+		ChatRoomID: chatRoomId,
+		UserID: userId,
+		Message: message,
 	}
 }

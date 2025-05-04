@@ -5,5 +5,5 @@ import (
 )
 
 type ChatUseCase interface {
-	Create(userId string, message string) (*domains.Chat)
+	Create(chatRoomId string, userId string, message string) (domains.Chat)
 }

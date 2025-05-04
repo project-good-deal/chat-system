@@ -1,9 +1,9 @@
 package main
 
 import (
-	"net/http"
-	"log"
 	"fmt"
+	"log"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 
@@ -12,11 +12,6 @@ import (
 	"github.com/project-good-deal/chat-system/src/routers"
 	// "github.com/good-deal/chat-system/src/chat/adapter/in/web"
 )
-
-
-
-func init() {
-}
 
 // @title Golang Gin API
 // @version 1.0
@@ -36,7 +31,10 @@ func main() {
 
 	log.Printf("[info] start http server listening %s", endPoint)
 
-	server.ListenAndServe()
+	err := server.ListenAndServe()
+  if err != nil && err != http.ErrServerClosed {
+		log.Fatalf("server boot error: %v", err)
+  }
 
 	// If you want Graceful Restart, you need a Unix system and download github.com/fvbock/endless
 	//endless.DefaultReadTimeOut = readTimeout

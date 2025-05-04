@@ -8,13 +8,15 @@ package setting
 
 import (
 	"github.com/project-good-deal/chat-system/src/chat/adapter/in/web"
+	"github.com/project-good-deal/chat-system/src/chat/adapter/out/chat_persistence"
 	"github.com/project-good-deal/chat-system/src/chat/application/services/chat_service"
 )
 
 // Injectors from wire.go:
 
-func InitializeChatService() *web.ChatController {
-	chatUseCase := chat_service.NewChatService()
+func InitializeChatController() *web.ChatController {
+	chatRepository := chat_persistence.NewChatPersistenceAdapter()
+	chatUseCase := chat_service.NewChatService(chatRepository)
 	chatController := web.NewChatController(chatUseCase)
 	return chatController
 }

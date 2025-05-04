@@ -6,5 +6,5 @@ import (
 
 // ChatRepository is the interface that wraps the basic Create method
 type ChatRepository interface {
-	Create(chat *domains.Chat) (*domains.Chat, error)
+	Create(chat domains.Chat) (domains.Chat, error)
 }

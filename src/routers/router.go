@@ -13,12 +13,11 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	
-	cc := setting.InitializeChatService()
+	cc := setting.InitializeChatController()
 	api := r.Group("/api")
 	{
 		api.POST("/chat", cc.CreateChat)
 	}
-  //  r.Run(":8080")
 
 	return r
 }
