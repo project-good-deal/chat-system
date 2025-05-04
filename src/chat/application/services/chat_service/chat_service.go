@@ -2,7 +2,6 @@ package chat_service
 
 import (
 	// import my domain chat
-	"log"
 
 	"github.com/project-good-deal/chat-system/src/chat/application/port/chat_port_in"
 	"github.com/project-good-deal/chat-system/src/chat/application/port/chat_port_out"
@@ -11,21 +10,23 @@ import (
 
 // chatService implements the ChatUseCase interface
 type ChatService struct {
-	chatRepository chat_port_out.ChatRepository
+	chatRoomRepository chat_port_out.ChatRoomRepository
+	// chatRepository chat_port_out.ChatRepository
 	// Add any dependencies you need here
 }
 
-func NewChatService(chatRepository chat_port_out.ChatRepository) chat_port_in.ChatUseCase {
-	return &ChatService{chatRepository: chatRepository}
+func NewChatService(chatRoomRepository chat_port_out.ChatRoomRepository) chat_port_in.ChatUseCase {
+	return &ChatService{chatRoomRepository: chatRoomRepository}
 }
 
 func (chartService ChatService) Create(chatRoomId string, userId string, message string) (domains.Chat) {
 	chat := domains.CreateChat(chatRoomId, userId, message)
-	log.Printf("Chat created: %v", chat.ChatRoomID)
-	log.Printf("Chat created: %v", chat.UserID)
-	log.Printf("Chat created: %v", chat.Message)
 	
-  chartService.chatRepository.Create(chat)
+  chatRoom := chartService.chatRoomRepository.FindById(chatRoomId)
+	chatRoom.AddChat(chat)
 	
+	// Save the chat to the repository
+	chartService.chatRoomRepository.UpdateChat(chatRoom, chat)
+
 	return chat
 }

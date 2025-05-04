@@ -13,6 +13,13 @@ import (
 func InitializeChatController() *web.ChatController {
 	// Initialize the chat service and controller
 	// using wire to inject dependencies
-	wire.Build(web.NewChatController, chat_service.NewChatService, chat_persistence.NewChatPersistenceAdapter)
+	wire.Build(web.NewChatController, chat_service.NewChatService, chat_persistence.NewChatRoomPersistenceAdapter)
 	return &web.ChatController{}
+}
+
+func InitializeChatRoomController() *web.ChatRoomController {
+	// Initialize the chat service and controller
+	// using wire to inject dependencies
+	wire.Build(web.NewChatRoomController, chat_service.NewChatRoomService, chat_persistence.NewChatRoomPersistenceAdapter)
+	return &web.ChatRoomController{}
 }

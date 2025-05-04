@@ -15,8 +15,15 @@ import (
 // Injectors from wire.go:
 
 func InitializeChatController() *web.ChatController {
-	chatRepository := chat_persistence.NewChatPersistenceAdapter()
-	chatUseCase := chat_service.NewChatService(chatRepository)
+	chatRoomRepository := chat_persistence.NewChatRoomPersistenceAdapter()
+	chatUseCase := chat_service.NewChatService(chatRoomRepository)
 	chatController := web.NewChatController(chatUseCase)
 	return chatController
+}
+
+func InitializeChatRoomController() *web.ChatRoomController {
+	chatRoomRepository := chat_persistence.NewChatRoomPersistenceAdapter()
+	chatRoomUseCase := chat_service.NewChatRoomService(chatRoomRepository)
+	chatRoomController := web.NewChatRoomController(chatRoomUseCase)
+	return chatRoomController
 }

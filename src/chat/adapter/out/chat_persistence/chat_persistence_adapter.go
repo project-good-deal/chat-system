@@ -18,13 +18,13 @@ func NewChatPersistenceAdapter() chat_port_out.ChatRepository {
 	return &ChatPersistenceAdapter{}
 }
 
-// Create creates a new chat message in the database
+// Create a new chat message in the database
 func (ChatPersistenceAdapter) Create(chat domains.Chat) (domains.Chat, error) {
 	log.Printf("ChatPersistenceAdapter: Create chat with ID: %s", chat.ChatRoomID)
 	dbConnection, ctx, cancel := util.GetConnection()
   collection := dbConnection.Collection("chats")
 
-  needToSave := dao.FromEntity(chat)
+  needToSave := dao.FromChatEntity(chat)
 	res, err := collection.InsertOne(ctx, needToSave)
 	if err != nil {
 		fmt.Printf("Error inserting chat: %v\n", err)

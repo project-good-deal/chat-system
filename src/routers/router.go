@@ -13,10 +13,14 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	
-	cc := setting.InitializeChatController()
+	chatController := setting.InitializeChatController()
+	chatRoomController := setting.InitializeChatRoomController()
+
 	api := r.Group("/api")
 	{
-		api.POST("/chat", cc.CreateChat)
+		api.POST("/chat", chatController.CreateChat)
+    api.POST("/chat-room", chatRoomController.CreateChatRoom)
+    api.GET("/chat-room", chatRoomController.GetChatRoomByUserId)
 	}
 
 	return r
